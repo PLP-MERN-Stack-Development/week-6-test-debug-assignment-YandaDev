@@ -171,7 +171,7 @@ router.post(
         title: req.body.title,
         content: req.body.content,
         category: req.body.category,
-        author: req.user, // auth middleware sets req.user to user ID
+        author: req.user.id, // auth middleware sets req.user as object with id property
         featuredImage: req.file ? req.file.filename : 'default-post.jpg'
       };
 
@@ -242,7 +242,7 @@ router.put(
       if (!post) return res.status(404).json({ error: 'Post not found' });
       
       // Check if user owns the post
-      if (post.author.toString() !== req.user) {
+      if (post.author.toString() !== req.user.id) {
         return res.status(403).json({ error: 'Not authorized to update this post' });
       }
 
@@ -285,7 +285,7 @@ router.delete('/:id', auth, param('id').isMongoId(), async (req, res, next) => {
     if (!post) return res.status(404).json({ error: 'Post not found' });
     
     // Check if user owns the post
-    if (post.author.toString() !== req.user) {
+    if (post.author.toString() !== req.user.id) {
       return res.status(403).json({ error: 'Not authorized to delete this post' });
     }
 

@@ -1,9 +1,9 @@
-# 🧪 Week 6: Testing and Debugging – Ensuring MERN App Reliability
+# Week 6: Testing and Debugging – Ensuring MERN App Reliability
 
-## 🚀 Objective
+## Objective
 Implement comprehensive testing strategies for a MERN stack application, including unit testing, integration testing, and end-to-end testing, while also learning debugging techniques to identify and fix common issues.
 
-## 📂 Tasks
+## Tasks
 
 ### Task 1: Setting Up Testing Environment
 - Configure Jest as the testing framework for both client and server
@@ -41,14 +41,14 @@ Implement comprehensive testing strategies for a MERN stack application, includi
 - Create a global error handler for the Express server
 - Implement performance monitoring and optimization
 
-## 🧪 Expected Outcome
+## Expected Outcome
 - A comprehensive test suite for a MERN stack application
 - Well-documented testing strategies and methodologies
 - High code coverage for critical application features
 - Improved application reliability and stability
 - Implementation of debugging tools and techniques
 
-## 🛠️ Setup
+## Setup
 1. Clone the starter code repository
 2. Install dependencies for both client and server:
    ```
