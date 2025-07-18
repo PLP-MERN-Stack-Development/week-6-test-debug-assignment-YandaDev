@@ -6,6 +6,7 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const app = require('../../src/app');
 const Post = require('../../src/models/Post');
 const User = require('../../src/models/User');
+const Category = require('../../src/models/Category');
 const { generateToken } = require('../../src/utils/auth');
 
 let mongoServer;
@@ -33,7 +34,7 @@ beforeAll(async () => {
     title: 'Test Post',
     content: 'This is a test post content',
     author: userId,
-    category: mongoose.Types.ObjectId(),
+    category: new mongoose.Types.ObjectId(),
     slug: 'test-post',
   });
   postId = post._id;
@@ -62,7 +63,7 @@ describe('POST /api/posts', () => {
     const newPost = {
       title: 'New Test Post',
       content: 'This is a new test post content',
-      category: mongoose.Types.ObjectId().toString(),
+      category: new mongoose.Types.ObjectId().toString(),
     };
 
     const res = await request(app)
@@ -81,7 +82,7 @@ describe('POST /api/posts', () => {
     const newPost = {
       title: 'Unauthorized Post',
       content: 'This should not be created',
-      category: mongoose.Types.ObjectId().toString(),
+      category: new mongoose.Types.ObjectId().toString(),
     };
 
     const res = await request(app)
@@ -95,7 +96,7 @@ describe('POST /api/posts', () => {
     const invalidPost = {
       // Missing title
       content: 'This post is missing a title',
-      category: mongoose.Types.ObjectId().toString(),
+      category: new mongoose.Types.ObjectId().toString(),
     };
 
     const res = await request(app)
@@ -104,7 +105,8 @@ describe('POST /api/posts', () => {
       .send(invalidPost);
 
     expect(res.status).toBe(400);
-    expect(res.body).toHaveProperty('error');
+    expect(res.body).toHaveProperty('errors');
+    expect(res.body.success).toBe(false);
   });
 });
 
@@ -118,7 +120,12 @@ describe('GET /api/posts', () => {
   });
 
   it('should filter posts by category', async () => {
-    const categoryId = mongoose.Types.ObjectId().toString();
+    // Create a real category
+    const category = await Category.create({
+      name: 'Test Category',
+      description: 'Category for testing',
+    });
+    const categoryId = category._id.toString();
     
     // Create a post with specific category
     await Post.create({
@@ -135,7 +142,7 @@ describe('GET /api/posts', () => {
     expect(res.status).toBe(200);
     expect(Array.isArray(res.body)).toBeTruthy();
     expect(res.body.length).toBeGreaterThan(0);
-    expect(res.body[0].category).toBe(categoryId);
+    expect(res.body[0].category._id).toBe(categoryId);
   });
 
   it('should paginate results', async () => {
@@ -146,7 +153,7 @@ describe('GET /api/posts', () => {
         title: `Pagination Post ${i}`,
         content: `Content for pagination test ${i}`,
         author: userId,
-        category: mongoose.Types.ObjectId(),
+        category: new mongoose.Types.ObjectId(),
         slug: `pagination-post-${i}`,
       });
     }
@@ -160,9 +167,11 @@ describe('GET /api/posts', () => {
 
     expect(page1.status).toBe(200);
     expect(page2.status).toBe(200);
-    expect(page1.body.length).toBe(10);
-    expect(page2.body.length).toBeGreaterThan(0);
-    expect(page1.body[0]._id).not.toBe(page2.body[0]._id);
+    expect(page1.body.posts.length).toBe(10);
+    expect(page2.body.posts.length).toBeGreaterThan(0);
+    expect(page1.body.posts[0]._id).not.toBe(page2.body.posts[0]._id);
+    expect(page1.body).toHaveProperty('pagination');
+    expect(page1.body.pagination.currentPage).toBe(1);
   });
 });
 
@@ -177,7 +186,7 @@ describe('GET /api/posts/:id', () => {
   });
 
   it('should return 404 for non-existent post', async () => {
-    const nonExistentId = mongoose.Types.ObjectId();
+    const nonExistentId = new mongoose.Types.ObjectId();
     const res = await request(app)
       .get(`/api/posts/${nonExistentId}`);
 

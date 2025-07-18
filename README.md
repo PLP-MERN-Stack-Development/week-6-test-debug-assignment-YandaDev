@@ -57,8 +57,8 @@ mern-testing/
 ## Requirements
 
 - Node.js (v18 or higher)
+- pnpm (v8 or higher) - Package manager
 - MongoDB (local installation or Atlas account)
-- npm or yarn
 - Basic understanding of testing concepts
 
 ## Testing Tools

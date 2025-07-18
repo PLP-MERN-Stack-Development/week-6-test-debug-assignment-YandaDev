@@ -52,27 +52,27 @@ Implement comprehensive testing strategies for a MERN stack application, includi
 1. Clone the starter code repository
 2. Install dependencies for both client and server:
    ```
-   # In the root directory
-   npm run install-all
+   # In the root directory (using pnpm)
+   pnpm run install-all
    ```
 3. Set up the test database:
    ```
    # In the server directory
-   npm run setup-test-db
+   pnpm run setup-test-db
    ```
 4. Run the tests:
    ```
    # Run all tests
-   npm test
+   pnpm test
    
    # Run only unit tests
-   npm run test:unit
+   pnpm run test:unit
    
    # Run only integration tests
-   npm run test:integration
+   pnpm run test:integration
    
    # Run only end-to-end tests
-   npm run test:e2e
+   pnpm run test:e2e
    ```
 
 ## ✅ Submission Instructions

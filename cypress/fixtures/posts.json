@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "507f1f77bcf86cd799439011",
+    "title": "Sample Post 1",
+    "content": "This is the content of sample post 1",
+    "author": {
+      "_id": "507f1f77bcf86cd799439001",
+      "username": "testuser",
+      "email": "test@example.com"
+    },
+    "category": {
+      "_id": "507f1f77bcf86cd799439021",
+      "name": "Technology"
+    },
+    "slug": "sample-post-1",
+    "featuredImage": "default-post.jpg",
+    "createdAt": "2023-01-01T00:00:00.000Z",
+    "updatedAt": "2023-01-01T00:00:00.000Z"
+  },
+  {
+    "_id": "507f1f77bcf86cd799439012",
+    "title": "Sample Post 2",
+    "content": "This is the content of sample post 2",
+    "author": {
+      "_id": "507f1f77bcf86cd799439001",
+      "username": "testuser",
+      "email": "test@example.com"
+    },
+    "category": {
+      "_id": "507f1f77bcf86cd799439022",
+      "name": "Lifestyle"
+    },
+    "slug": "sample-post-2",
+    "featuredImage": "default-post.jpg",
+    "createdAt": "2023-01-02T00:00:00.000Z",
+    "updatedAt": "2023-01-02T00:00:00.000Z"
+  }
+]

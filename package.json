@@ -1,0 +1,50 @@
+{
+  "name": "mern-testing-assignment",
+  "version": "1.0.0",
+  "description": "MERN stack application with comprehensive testing",
+  "main": "server/src/server.js",
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "concurrently \"pnpm run server\" \"pnpm run client\"",
+    "server": "cd server && pnpm run dev",
+    "server:debug": "cd server && pnpm run dev:debug",
+    "client": "cd client && pnpm run dev",
+    "install-all": "pnpm install && cd server && pnpm install && cd ../client && pnpm install",
+    "test": "jest --projects jest.config.js",
+    "test:unit": "jest --projects jest.config.js --testNamePattern=\"Unit\"",
+    "test:integration": "jest --projects jest.config.js --testNamePattern=\"Integration\"",
+    "test:e2e": "cypress run",
+    "test:e2e:open": "cypress open",
+    "test:e2e:headless": "cypress run --headless",
+    "test:e2e:chrome": "cypress run --browser chrome",
+    "test:e2e:firefox": "cypress run --browser firefox",
+    "test:coverage": "jest --projects jest.config.js --coverage",
+    "test:watch": "jest --projects jest.config.js --watch",
+    "setup-test-db": "cd server && pnpm run setup-test-db",
+    "clean": "pnpm store prune && cd server && pnpm store prune && cd ../client && pnpm store prune",
+    "clean:all": "rimraf node_modules client/node_modules server/node_modules pnpm-lock.yaml client/pnpm-lock.yaml server/pnpm-lock.yaml",
+    "setup": "bash check-setup.sh || check-setup.bat"
+  },
+  "keywords": [
+    "mern",
+    "testing",
+    "jest",
+    "react",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@cypress/react": "^9.0.1",
+    "@cypress/vite-dev-server": "^6.0.3",
+    "concurrently": "^8.2.2",
+    "cypress": "^14.5.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.4",
+    "rimraf": "^5.0.5"
+  }
+}

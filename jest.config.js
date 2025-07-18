@@ -1,7 +1,7 @@
 // jest.config.js - Root Jest configuration file
 
 module.exports = {
-  // Base configuration for all tests
+  // Multi-project configuration
   projects: [
     // Server-side tests configuration
     {
@@ -16,6 +16,7 @@ module.exports = {
         '!server/src/config/**',
         '!**/node_modules/**',
       ],
+      testTimeout: 30000, // Increase timeout for MongoDB setup
     },
     
     // Client-side tests configuration
@@ -38,11 +39,11 @@ module.exports = {
         '!client/src/index.js',
         '!**/node_modules/**',
       ],
+      testTimeout: 10000,
     },
   ],
   
-  // Global configuration
-  verbose: true,
+  // Global coverage settings
   collectCoverage: true,
   coverageReporters: ['text', 'lcov', 'clover', 'html'],
   coverageThreshold: {
@@ -53,5 +54,4 @@ module.exports = {
       lines: 70,
     },
   },
-  testTimeout: 10000,
 }; 

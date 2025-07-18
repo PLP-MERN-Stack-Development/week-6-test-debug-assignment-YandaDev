@@ -1,0 +1,4 @@
+# pnpm configuration
+shamefully-hoist=true
+auto-install-peers=true
+prefer-workspace-packages=true
